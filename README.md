@@ -1,1 +1,1 @@
-# TinkoffIvestBot
+# TinkoffInvestBot
