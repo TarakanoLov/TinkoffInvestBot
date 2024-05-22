@@ -4,15 +4,17 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
+	"os"
 )
 
-func send(text string, bot string, chat_id string) {
-	request_url := "https://api.telegram.org/" + bot + "/sendMessage"
+func my_send(text string) {
+	request_url := "https://api.telegram.org/bot" + os.Getenv("telegram_token") + "/sendMessage"
 
 	client := &http.Client{}
 
-	values := map[string]string{"text": text, "chat_id": chat_id}
+	values := map[string]string{"text": text, "chat_id": os.Getenv("chat_id")}
 	json_paramaters, _ := json.Marshal(values)
 
 	req, _ := http.NewRequest("POST", request_url, bytes.NewBuffer(json_paramaters))
@@ -23,7 +25,8 @@ func send(text string, bot string, chat_id string) {
 	if err != nil {
 		fmt.Println(err)
 	} else {
-		fmt.Println(res.Status)
+		body, _ := io.ReadAll(res.Body)
+		fmt.Println(res.Status, string(body), 9, os.Getenv("chat_id"), 9, os.Getenv("telegram_token"))
 		defer res.Body.Close()
 	}
 }
