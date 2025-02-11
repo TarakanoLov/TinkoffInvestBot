@@ -1,12 +1,27 @@
+settings:
+  how_often_to_buy: 1d
+  maximum_spend_per_day: 1000
 assets:
   shares:
-    percent: 5
+    percent: 0
   bonds:
-    percent: 30
-  etf:
-    percent: 30
-  metals:
-    percent: 20
+    percent: 33.3
+    buy_in_proportion_to_capitalization: true
     list:
-      - gold:
-          percent: 100
+      - any
+  etf:
+    percent: 33.4
+    list:
+      - TMOS:
+          percent: 33.3
+      - SBMX:
+          percent: 33.3
+      - EQMX:
+          percent: 33.4
+  metals:
+    percent: 33.3
+    list:
+      - GLDRUB_TOM:
+          percent: 50
+      - GOLD:
+          percent: 50
