@@ -1,7 +1,7 @@
 # TinkoffInvestBot
 
 запустить
-go run .
+go run cmd/invest_bot/main.go
 
 выполнить тесты
 go test ./...
