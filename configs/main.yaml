@@ -1,0 +1,12 @@
+assets:
+  shares:
+    percent: 5
+  bonds:
+    percent: 30
+  etf:
+    percent: 30
+  metals:
+    percent: 20
+    list:
+      - gold:
+          percent: 100
