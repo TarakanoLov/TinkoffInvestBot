@@ -2,17 +2,23 @@ package main
 
 import (
 	"fmt"
-	"internal/configuration"
 	"os"
+
+	"github.com/parchinskiy/TinkoffInvestBot.git/internal/configuration"
 )
 
 func main() {
 	file, err := os.Open("configs/main.yaml")
 	if err != nil {
-		fmt.Println("Error when load configs/main.yaml:", err)
+		fmt.Println("Error when open configs/main.yaml:", err)
 		return
 	}
-	settings := configuration.Load(file)
+	settings, err := configuration.Load(os.ReadFile(file))
+	if err != nil {
+		fmt.Println("Error when open configs/main.yaml:", err)
+		return
+	}
+
 	current_stocks := tinkoff.RequestCurrentStocks()
 	// update database of current actives
 	for {
