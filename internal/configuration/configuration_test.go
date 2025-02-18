@@ -56,6 +56,38 @@ assets:
 
 }
 
+func TestLoadErrorIfPercentNotEqualTo100(t *testing.T) {
+	config, err := Load([]byte(`
+settings:
+  how_often_to_buy: "24h"
+  maximum_spend_per_day: 1000
+assets:
+  shares:
+    percent: 1
+  bonds:
+    percent: 33.3
+    buy_in_proportion_to_capitalization: true
+    list:
+      - any
+  etf:
+    percent: 33.4
+    list:
+      - TMOS:
+          percent: 33.3
+      - SBMX:
+          percent: 33.3
+      - EQMX:
+          percent: 33.4
+  metals:
+    percent: 33.3
+    list:
+      - GLDRUB_TOM:
+          percent: 50
+      - GOLD:
+          percent: 50`))
+	assert.Nil(config)
+	assert.Nil(err)
+}
 /*
 etf:
     percent: 33.4
