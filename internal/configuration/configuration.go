@@ -2,6 +2,8 @@ package configuration
 
 import (
 	"time"
+	"fmt"
+	"math"
 
 	"gopkg.in/yaml.v3"
 )
@@ -34,6 +36,9 @@ func Load(input []byte) (*Config, error) {
 	var config Config
 	if err := yaml.Unmarshal(input, &config); err != nil {
 		return nil, err
+	}
+	if math.Abs(config.Assets.Shares.Percent + config.Assets.Bonds.Percent + config.Assets.Etf.Percent + config.Assets.Metals.Percent - 100.0) > 0.01{
+		return nil, fmt.Errorf("Expected sum of percent = 100, actual = %v", config.Assets.Shares.Percent + config.Assets.Bonds.Percent + config.Assets.Etf.Percent + config.Assets.Metals.Percent)
 	}
 	return &config, nil
 }

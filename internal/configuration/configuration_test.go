@@ -43,12 +43,33 @@ assets:
 		t.Fatalf("Config not parsed")
 	}
 
-	if config.Settings.How_often_to_buy != time.Hour*24 {
-		t.Error(config.Settings.How_often_to_buy)
-	}
-	if config.Settings.Maximum_spend_per_day != 1000 {
-		t.Error(config.Settings.Maximum_spend_per_day)
-	}
+	assert.Equal(t, config.Settings.How_often_to_buy, time.Hour*24)
+	assert.Equal(t, config.Settings.Maximum_spend_per_day, 1000)
 
 	assert.Equal(t, config.Assets.Shares.Percent, 0.0)
+
+	assert.Equal(t, config.Assets.Bonds.Percent, 33.3)
+	assert.Equal(t, config.Assets.Bonds.Buy_in_proportion_to_capitalization, true)
+	assert.Equal(t, config.Assets.Bonds.List, []string{"any"})
+
+    assert.Equal(t, config.Assets.Etf.Percent, 33.4)
+
 }
+
+/*
+etf:
+    percent: 33.4
+    list:
+      - TMOS:
+          percent: 33.3
+      - SBMX:
+          percent: 33.3
+      - EQMX:
+          percent: 33.4
+  metals:
+    percent: 33.3
+    list:
+      - GLDRUB_TOM:
+          percent: 50
+      - GOLD:
+          percent: 50`))*/
